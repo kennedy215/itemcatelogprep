@@ -5,15 +5,15 @@
     <title></title>
   </head>
   <body>
-    <form action="{{ url_for("editedMenuItem", restaurant_id = restaurant_id, menu_id=editItem.id)}}" method="post">
+    <form action="{{ url_for("editMenuItem", restaurant_id = restaurant_id, menu_id = item.id)}}" method="post">
       <p>Name:
-      <input type="text" size="30" name="name"></input>
+      <input type="text" size="30" name="name" placeholder={{ item.name }}></input>
       </p>
       <p>Description:
-      <input type="text" size="30" name="description"></input>
+      <input type="text" size="30" name="description" placeholder={{ item.description }}></input>
       </p>
       <p>Price:
-      <input type="text" size="6" name="price"></input>
+      <input type="text" size="6" name="price" placeholder={{ item.price }}></input>
       </p>
       </br>
       <input type="radio" name="course" value="appetizer" checked>appetizer</input>
@@ -23,9 +23,7 @@
       </br>
       <input type="submit" value="Edit">
     </form>
-    <a href= '{{url_for('restaurantMenu', restaurant_id= editItem.restaurant_id)}}'>Cancel</a>
-
-
+    <a href= '{{url_for('restaurantMenu', restaurant_id=item.restaurant_id)}}'>Cancel</a>
     <!-- <form action= "{{url_for('editMenuItem', restaurant_id = restaurant_id, menu_id=item.id)}}" method = 'POST'>
 
     <p>Name:</p>
