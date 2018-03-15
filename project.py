@@ -87,4 +87,4 @@ def deleteMenuItem(restaurant_id, menu_id):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host = '0.0.0.0', port = 5550)
+    app.run(host = '0.0.0.0', port = 5556)
