@@ -6,6 +6,10 @@
   </head>
   <body>
     <a href="{{ url_for('newMenuItem', restaurant_id=restaurant.id) }}"> Create New Item </a>
+  </br>
+
+    {{ get_flashed_messages(newMenuItem) }}
+
     {% for i in items %}
       <h2>{{i.name }}</h2>
     </br>

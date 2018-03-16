@@ -5,6 +5,7 @@
     <title></title>
   </head>
   <body>
+    {{ get_flashed_messages(editMenuItem) }}
     <form action="{{ url_for("editMenuItem", restaurant_id = restaurant_id, menu_id = item.id)}}" method="post">
       <p>Name:
       <input type="text" size="30" name="name" placeholder={{ item.name }}></input>
