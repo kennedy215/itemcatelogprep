@@ -1,8 +1,10 @@
-from flask import Flask, render_template, url_for, redirect, request, flash, jsonify
-
+from flask import Flask, render_template, url_for, redirect, request, flash, jsonify, session as login_session
+# login_session works like a dictionary
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
+
+import random, string
 
 app = Flask(__name__)
 app.secret_key = "kennedysecret"
@@ -14,6 +16,13 @@ session = DBSession()
 
 
 @app.route('/')
+def restaurantMenuIndex():
+    restaurant = session.query(Restaurant).first()
+    item = session.query(MenuItem).filter_by(restaurant_id=restaurant.id)
+
+    return render_template("index.html", restaurant=restaurant, items=item)
+
+
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurantMenu(restaurant_id):
     restaurant = session.query(Restaurant).first()
@@ -29,6 +38,16 @@ def restaurantMenu(restaurant_id):
     #     output += '</br>'
     # return render_template("index.html", restaurant=restaurant, items=items)
     return render_template("index.html", restaurant=restaurant, items=item)
+# Create a state token to prevent request forgery
+# Store it in the session for later validation
+@app.route('/login')
+def showLogin():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
+    login_session['state'] = state
+    # return "The current session state is %s" % login_session['state']
+    return render_template("login.html", STATE=state)
+    #Render the login template
 
 
 # Export Data and parse into JSON
