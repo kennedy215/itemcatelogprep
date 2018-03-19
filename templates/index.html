@@ -6,7 +6,7 @@
 {% endblock %}
 {% block article %}
 
-<a href="{{ url_for('newMenuItem', restaurant_id=restaurant.id) }}"> Create New Item </a>
+<a href="{{ url_for('newMenuItem', restaurant_id=restaurant.id) }}"><p>Create New Item <p></a>
 </br>
 
 {{ get_flashed_messages(newMenuItem) }}
@@ -14,11 +14,11 @@
 {% for i in items %}
   <h2>{{i.name }}</h2>
 </br>
-  {{ i.description }}
+  <p>{{ i.description }}</p>
 </br>
-  {{ i.price }}
+  <p>{{ i.price }}</p>
 </br>
-  {{ i.course }}
+  <p>{{ i.course }}</p>
 </br>
 </br>
   <!-- <a href="{{ url_for('restaurantMenu', restaurant_id=restaurant.id) }}"> Edit </a> -->

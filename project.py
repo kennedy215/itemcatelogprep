@@ -7,7 +7,7 @@ from database_setup import Base, Restaurant, MenuItem
 import random, string
 
 app = Flask(__name__)
-app.secret_key = "kennedysecret"
+
 
 engine = create_engine('sqlite:///restaurantmenu.db')
 
@@ -40,14 +40,6 @@ def restaurantMenu(restaurant_id):
     return render_template("index.html", restaurant=restaurant, items=item)
 # Create a state token to prevent request forgery
 # Store it in the session for later validation
-@app.route('/login')
-def showLogin():
-    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
-    login_session['state'] = state
-    # return "The current session state is %s" % login_session['state']
-    return render_template("login.html", STATE=state)
-    #Render the login template
 
 
 # Export Data and parse into JSON
@@ -111,11 +103,31 @@ def deleteMenuItem(restaurant_id, menu_id):
     else:
         return render_template('deletemenuitem.html', item=deleteItem)
 
+@app.route('/login')
+def showLogin():
+    # create a string that is random with uppercase letters and numbers.
+    state = " ".join(random.choice(string.ascii_uppercase + string.digits + string.ascii_lowercase)
+        for x in xrange(32))
+        # for x in xrange(32))
+        # # Also can be expressed as
+    login_session['state'] = state
+    return render_template('login.html')
 
 
+
+# @app.route('/login')
+# def showLogin():
+#     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+#         for x in xrange(32))
+#     login_session['state'] = state
+#     # return "The current session state is %s" % login_session['state']
+#     return render_template("login.html", STATE=state)
+#     #Render the login template
 
     # return output
 
 if __name__ == '__main__':
+    app.secret_key = "kennedysecret"
     app.debug = True
+    # app.run(host = '0.0.0.0', port = 5556)
     app.run(host = '0.0.0.0', port = 5556)

@@ -7,45 +7,50 @@
       <!-- below for internet explorer 5 - use for all websites -->
       <script src="files/html5shiv.js"></script>
     <title>{% block title %} Foodies Restaurant Guide {% endblock %}</title>
+    <!-- normalize is good to use to get rid of margins before design -->
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='normalize.css') }}">
+    <!-- google fonts -->
+    <link rel="stylesheet" type=text/css href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <!-- the style of the web app -->
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='stylesheet.css') }}"
   {% endblock %}
   </head>
   <body>
   {% block body %}
+    <div class="container">
+      <header class ="header" role="banner">
+        <h1>Foodies Restaurant Guide</h1>
+      </header>
+      <nav class = "navigation" role="navigation">
+        <ul>
+          <li><a ref="#">Add Restaurant</a></li>
+          <li><a href="#links">Links</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+      <article>
+      {% block article %}
+        <h2>Top Restaurants</h2>
+        <p>We discovered the tope places to eat that will have you
+          drool with excitement!
+        </p>
+      {% endblock %}
+      </article>
+      <aside role=complementary"">
+      {% block aside %}
+        <h2 id="links"> Related Links </h2>
+        <ul>
+          <li><a href="#">Pat's Cheese Steaks</a></li>
+          <li><a href="#">Gino's Cheesteaks</a></li>
+          <li><a href="#">Ishkabibbles</a></li>
+        </ul>
+      {% endblock %}
+      </aside>
+      <footer role="contentinfo">
+        <p>&copy; 2016 Kennedy D</p>
+      </footer>
 
-    <header role="banner">
-      <h1>Foodies Restaurant Guide</h1>
-    </header>
-    <nav role="navigation">
-      <ul>
-        <li><a ref="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Links</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-    <article>
-    {% block article %}
-      <h2>Top Restaurants</h2>
-      <p>We discovered the tope places to eat that will have you
-        drool with excitement!
-      </p>
     {% endblock %}
-    </article>
-    <aside role=complementary"">
-    {% block aside %}
-      <h2> Related Links </h2>
-      <ul>
-        <li><a href="#">Pat's Cheese Steaks</a></li>
-        <li><a href="#">Gino's Cheesteaks</a></li>
-        <li><a href="#">Ishkabibbles</a></li>
-      </ul>
-    {% endblock %}
-    </aside>
-    <footer role="contentinfo">
-      <p>&copy; 2016 Kennedy D</p>
-    </footer>
-
-  {% endblock %}
-  </body>
+    </body>
+  </div>
 </html>
