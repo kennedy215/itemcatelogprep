@@ -1,12 +1,27 @@
 from flask import Flask, render_template, url_for, redirect, request, flash, jsonify, session as login_session
+
 # login_session works like a dictionary
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
 
+# IMPORTS FOR THIS STEP
+# from oauth2client.client import flow_from_clientsecrets
+# from oauth2client.client import FlowExchangeError
+# import httplib2
+# import json
+# from flask import make_response
+# import requests
+
 import random, string
 
+
+
+
 app = Flask(__name__)
+
+
+
 
 
 engine = create_engine('sqlite:///restaurantmenu.db')
@@ -19,7 +34,6 @@ session = DBSession()
 def restaurantMenuIndex():
     restaurant = session.query(Restaurant).first()
     item = session.query(MenuItem).filter_by(restaurant_id=restaurant.id)
-
     return render_template("index.html", restaurant=restaurant, items=item)
 
 
@@ -103,15 +117,32 @@ def deleteMenuItem(restaurant_id, menu_id):
     else:
         return render_template('deletemenuitem.html', item=deleteItem)
 
+
+
+# Create anti-forgery state token
 @app.route('/login')
 def showLogin():
-    # create a string that is random with uppercase letters and numbers.
-    state = " ".join(random.choice(string.ascii_uppercase + string.digits + string.ascii_lowercase)
-        for x in xrange(32))
-        # for x in xrange(32))
-        # # Also can be expressed as
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                    for x in xrange(32))
     login_session['state'] = state
-    return render_template('login.html')
+    # return "The current session state is %s" % login_session['state']
+    return render_template('login.html', STATE=state)
+
+
+
+
+
+  #    # Create a state token to prevent request forgery.
+  # # Store it in the session for later validation.
+  # state = hashlib.sha256(os.urandom(1024)).hexdigest()
+  # session['state'] = state
+  # # Set the client ID, token state, and application name in the HTML while
+  # # serving it.
+  # response = make_response(
+  #     render_template('index.html',
+  #                     CLIENT_ID=CLIENT_ID,
+  #                     STATE=state,
+  #                     APPLICATION_NAME=APPLICATION_NAME))
 
 
 

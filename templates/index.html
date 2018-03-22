@@ -5,9 +5,12 @@
   {{ super() }}
 {% endblock %}
 {% block article %}
-
+<style> document.getElementById("date").inner.html = Date(); </style>
 <a href="{{ url_for('newMenuItem', restaurant_id=restaurant.id) }}"><p>Create New Item <p></a>
 </br>
+
+<p id="date"></p>
+
 
 {{ get_flashed_messages(newMenuItem) }}
 
